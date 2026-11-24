@@ -1,16 +1,18 @@
-# React + Vite
+# CvSU Mini Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Lab 4 Guide Questions
 
-Currently, two official plugins are available:
+**1. Why do we use two separate states, searchText and debouncedSearch?**
+`searchText` is tied to the input box and updates on every keystroke so typing feels instant. `debouncedSearch` only updates after the user pauses for 300 ms, and it is the value used for filtering. This keeps the input responsive without re-filtering the list on every key press.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**2. What would happen if the debounce effect did not return a cleanup function?**
+Every keystroke would leave its own timer running. Each timer would still fire after 300 ms and call `setDebouncedSearch`, so the list would update once per keystroke instead of only after the final pause. That defeats the purpose of debouncing.
 
-## React Compiler
+**3. What is the purpose of the dependency array? What if it is `[]`? What if it is left out?**
+It tells React when to re-run the effect: only when a listed value changes. With `[]`, the effect runs only once, after the first render. If it is left out completely, the effect runs after every render.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**4. Why should we avoid sorting the original products array directly?**
+`sort()` mutates the array it is called on. Changing the original data can cause bugs elsewhere, and the "Default" order could not be restored. We sort a copy (`[...filteredProducts]`) instead.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+**5. Is the filtered list better stored in state, or calculated during rendering?**
+It is better to calculate it during rendering. It can be derived from `debouncedSearch`, `category`, and `sortOrder`, so storing it in its own state would duplicate data and could go out of sync. Calculating it each render keeps a single source of truth.

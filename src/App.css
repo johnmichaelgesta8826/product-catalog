@@ -204,3 +204,80 @@ header p {
     font-size: 27px;
   }
 }
+
+
+/* SEARCH BAR (Lab 4) */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.search-bar .search-input {
+  flex: 2 1 220px;
+}
+
+.search-bar input,
+.search-bar select {
+  flex: 1 1 150px;
+  padding: 11px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  background: #fff;
+  color: #222;
+}
+
+.search-bar input:focus,
+.search-bar select:focus {
+  outline: none;
+  border-color: #a51f2b;
+}
+
+.clear-btn {
+  flex: 0 0 auto;
+  padding: 11px 18px;
+  background: #fff;
+  color: #a51f2b;
+  border: 1px solid #a51f2b;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.clear-btn:hover {
+  background: #a51f2b;
+  color: #fff;
+}
+
+.result-count {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 18px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  background: #fff;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  color: #777;
+  font-size: 15px;
+}
+
+@media (max-width: 550px) {
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input,
+  .search-bar select,
+  .clear-btn {
+    width: 100%;
+    flex: none;
+  }
+}
